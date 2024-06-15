@@ -263,8 +263,6 @@ void setup() {
     pinMode(GREEN_LED, OUTPUT);
     pinMode(YELLOW_BUTTON, INPUT);
     pinMode(YELLOW_LED, OUTPUT);
-
-    randomSeed(micros());
     
     runStartup();
     delay(1000);
