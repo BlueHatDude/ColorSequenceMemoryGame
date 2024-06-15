@@ -264,6 +264,8 @@ void setup() {
     pinMode(YELLOW_BUTTON, INPUT);
     pinMode(YELLOW_LED, OUTPUT);
     
+    randomSeed(analogRead(A0));
+
     runStartup();
     delay(1000);
 }
