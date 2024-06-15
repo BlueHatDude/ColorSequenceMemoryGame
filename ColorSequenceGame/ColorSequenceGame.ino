@@ -1,9 +1,16 @@
 /**
  * @file ColorSequenceGame.ino
  * @author BlueHatDude (https://github.com/BlueHatDude)
- * @version 0.1
+ * @version 1.0
  * 
- * On startup, the lights will flash in sequence 
+ * 1. On startup, the lights will turn on one-by-one, then the game will start
+ * 2. At the start of each round, a sequence of colors will be displayed
+ * 3. After each round, the player must push the corresponding buttons in
+ *     the correct sequence.
+ * 4. Steps 2 & 3 will repeat until the game ends.
+ * 
+ * Note: the indication that the player has lost is all the LEDs turning on
+ *          then turning off one-by-one. 
  */
 #include <stdint.h>
 
