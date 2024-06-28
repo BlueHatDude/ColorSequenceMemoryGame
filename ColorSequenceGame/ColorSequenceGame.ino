@@ -37,10 +37,10 @@
 
 
 /* button states */
-static volatile uint8_t redButtonState = LOW;
-static volatile uint8_t blueButtonState = LOW;
-static volatile uint8_t greenButtonState = LOW;
-static volatile uint8_t yellowButtonState = LOW;
+static volatile uint8_t red_button_state = LOW;
+static volatile uint8_t blue_button_state = LOW;
+static volatile uint8_t green_button_state = LOW;
+static volatile uint8_t yellow_button_state = LOW;
 
 
 /* game state */
@@ -54,12 +54,12 @@ typedef enum : uint8_t {
 
 
 struct GameState {
-    bool hasLost;
+    bool has_lost;
     Color sequence[25];
     uint8_t index;
 };
 static struct GameState g_GameState = {
-    .hasLost = false,
+    .has_lost = false,
     .sequence = { NO_COLOR },
     .index = 0,
 };
@@ -93,27 +93,27 @@ static void addColor() {
 
 
 static inline void displayColor(Color c) {
-    uint8_t colorPin = 0;
+    uint8_t color_pin = 0;
     switch (c) {
         case RED:
-            colorPin = RED_LED;
+            color_pin = RED_LED;
             break;
         case BLUE:
-            colorPin = BLUE_LED;
+            color_pin = BLUE_LED;
             break;
         case GREEN:
-            colorPin = GREEN_LED;
+            color_pin = GREEN_LED;
             break;
         case YELLOW:
-            colorPin = YELLOW_LED;
+            color_pin = YELLOW_LED;
             break;
         default:
             break;
     }
     
-    digitalWrite(colorPin, HIGH);
+    digitalWrite(color_pin, HIGH);
     delay(500);
-    digitalWrite(colorPin, LOW);
+    digitalWrite(color_pin, LOW);
 } 
 
 
@@ -126,10 +126,10 @@ static void displaySequence() {
 
 
 static void updateButtonStates() {
-    redButtonState = digitalRead(RED_BUTTON);
-    blueButtonState = digitalRead(BLUE_BUTTON);
-    greenButtonState = digitalRead(GREEN_BUTTON);
-    yellowButtonState = digitalRead(YELLOW_BUTTON);
+    red_button_state = digitalRead(RED_BUTTON);
+    blue_button_state = digitalRead(BLUE_BUTTON);
+    green_button_state = digitalRead(GREEN_BUTTON);
+    yellow_button_state = digitalRead(YELLOW_BUTTON);
 }
 
 
@@ -139,25 +139,25 @@ static void updateButtonStates() {
 static bool buttonIsPressed() {
     updateButtonStates();
     return (
-        (redButtonState == HIGH)
-        || (blueButtonState == HIGH)
-        || (greenButtonState == HIGH)
-        || (yellowButtonState == HIGH)
+        (red_button_state == HIGH)
+        || (blue_button_state == HIGH)
+        || (green_button_state == HIGH)
+        || (yellow_button_state == HIGH)
     );
 }
 
 
 static uint8_t getButtonPressed() {
-    if (redButtonState == HIGH) {
+    if (red_button_state == HIGH) {
         return RED_BUTTON;
     }
-    else if (blueButtonState == HIGH) {
+    else if (blue_button_state == HIGH) {
         return BLUE_BUTTON;
     }
-    else if (greenButtonState == HIGH) {
+    else if (green_button_state == HIGH) {
         return GREEN_BUTTON;
     }
-    else if (yellowButtonState == HIGH) {
+    else if (yellow_button_state == HIGH) {
         return YELLOW_BUTTON;
     }
     else {
@@ -182,8 +182,8 @@ static uint8_t colorToLED(const Color color) {
 }
 
 
-static uint8_t buttonToLED(const uint8_t btnPin) {
-    switch (btnPin) {
+static uint8_t buttonToLED(const uint8_t btn_pin) {
+    switch (btn_pin) {
         case RED_BUTTON: return RED_LED;
         case BLUE_BUTTON: return BLUE_LED;
         case GREEN_BUTTON: return GREEN_LED;
@@ -237,7 +237,7 @@ static void startNextRound() {
     for (uint8_t btnsPressed = 0; btnsPressed < g_GameState.index; btnsPressed++) {
         chosenColor = getButtonColor();
         if (chosenColor != g_GameState.sequence[btnsPressed]) {
-            g_GameState.hasLost = true;
+            g_GameState.has_lost = true;
             return;
         }
     }
@@ -279,9 +279,10 @@ void setup() {
 
 
 void loop() {
-    if (not g_GameState.hasLost) {
+    if (not g_GameState.has_lost) {
         startNextRound();
     } else {
         showLoss();
     }
 }
+ 
